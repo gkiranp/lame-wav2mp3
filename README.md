@@ -22,4 +22,17 @@ C++(11) based wrapper function to Lame-encoder Library.
 
 (1) Lame library ver 3.100 and later; Download it from here : http://lame.sourceforge.net/
 
+## How to build
 
+	``` $git clone https://github.com/gkiranp/lame-wav2mp3.git
+	``` $cd lame-wav2mp3/src
+	``` $mkdir -p build
+	``` $cd build
+	``` $cmake ..
+	``` $make
+
+## To run the application
+	``` $cd lame-wav2mp3/src/build/bin
+	``` $./wav2mp3 <complete-path-to-directory-containing-wav-files>
+
+	    
