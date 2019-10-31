@@ -18,3 +18,8 @@ C++(11) based wrapper function to Lame-encoder Library.
 
 (7) Multithreading shall be implemented in a portable way, for example using POSIX pthreads.
 
+## Pre-Requirements
+
+(1) Lame library ver 3.100 and later; Download it from here : http://lame.sourceforge.net/
+
+
