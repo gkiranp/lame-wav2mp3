@@ -2,13 +2,35 @@
 
 namespace Application 
 {
-//lambda-fun to get MP3 file extension from Wav file
+/**
+ * @api: Usage
+ * @description:
+ * This is a lambda-func to display usage of application.
+ */
+auto Usage = [](const std::string &&app) {
+    std::cout << "Usage :" << std::endl;
+    std::cout << app << " <dir-for-wav-files>" << std::endl;
+};
+
+/**
+ * @api: get_mp3_ext
+ * @description:
+ * This is a lambda-func which can return MP3
+ * file extension when passed Wav file argument.
+ */
 auto get_mp3_ext = [](const std::string &wav) {
     std::string mp3str = wav;
     return mp3str.replace(mp3str.length()-3, 3, "mp3");
 };
     
-//lambda-func to convert Wav to MP3
+/**
+ * @api: encode
+ * @description:
+ * This is a lambda-func which convers wav files into
+ * corresponding mp3 file using Lame encoder library.
+ * The basic version of Lame settings facility is
+ * utilized here for encoding.
+ */
 std::function<void(std::string)> encode = [](const std::string &fwav)
 {
     //convert wav to mp3
@@ -43,22 +65,33 @@ std::function<void(std::string)> encode = [](const std::string &fwav)
 
 } //end-of-namespace-Application
 
+/**
+ * @class: parser
+ * @api: parser-ctr
+ * @in: dirpath - directory path where wav files present
+ * @return: none
+ * @description:
+ * Constructor for parser class.
+ */
 Utils::parser::parser(std::string dirpath)
 {
     try {
         m_wavfiles = read_directory(dirpath);
     }
     catch(const std::exception& e) {
-        std::cout << "Error reading from " << dirpath << ": " << e.what() << '\n';
-        Usage();
+        std::cout << "Error reading from " << dirpath << ": " << e.what() << std::endl;
     }
 }	
 	
-void Utils::parser::Usage(void)
-{
-    std::cout << "None";
-}
-	
+/**
+ * @class: parser
+ * @api: read_directory
+ * @in: dir_name - directory path where wav files present
+ * @return: wavfiles - list of wav files
+ * @description:
+ * This API will read the directory and returns list of
+ * wav files present in directory.
+ */
 std::vector<std::string> Utils::parser::read_directory(const std::string& dir_name)
 {
     std::vector<std::string> wavfiles;
@@ -107,25 +140,66 @@ std::vector<std::string> Utils::parser::read_directory(const std::string& dir_na
     return wavfiles;
 }
 
+/**
+ * @class: parser
+ * @api: parser-dtr
+ * @in: none
+ * @return: none
+ * @description:
+ * Destructor for parser class.
+ */
 Utils::parser::~parser()
 {
 }
 
+/**
+ * @class: parser
+ * @api: get_wavfiles
+ * @in: none
+ * @return: list of wav files
+ * @description:
+ * Destructor for parser class.
+ */
 std::vector<std::string> Utils::parser::get_wavfiles(void)
 {
     return m_wavfiles;
 }
 
+/**
+ * @class: thread_pool
+ * @api: thread_pool-ctr
+ * @in: wavfiles - list of wavfiles, along with complete path
+ * @return: none
+ * @description:
+ * Constructor for thread_pool class.
+ */
 Utils::thread_pool::thread_pool(const std::vector<std::string> &wavfiles) : m_wavfiles(wavfiles)
 {
     assert(!m_wavfiles.empty());
 }
 
+/**
+ * @class: thread_pool
+ * @api: thread_pool-dtr
+ * @in: none
+ * @return: none
+ * @description:
+ * Destructor for thread_pool class.
+ */
 Utils::thread_pool::~thread_pool()
 {
     m_Pool.clear();
 }
 
+/**
+ * @class: thread_pool
+ * @api: run
+ * @in: none
+ * @return: none
+ * @description:
+ * This api will run the threads in pool utilizing
+ * maximum hardware concurrency supported by system.
+ */
 void Utils::thread_pool::run(void)
 {
     //Lets create a thread-pools to convert files
@@ -139,6 +213,14 @@ void Utils::thread_pool::run(void)
     }
 }
 
+/**
+ * @class: thread_pool
+ * @api: finish
+ * @in: none
+ * @return: none
+ * @description:
+ * This api will stop the threads in pool by joining back.
+ */
 void Utils::thread_pool::finish(void)
 {
     for(std::thread& th: m_Pool)
@@ -148,15 +230,39 @@ void Utils::thread_pool::finish(void)
     }
 }
 
+/**
+ * @class: Encoder
+ * @api: Encoder-ctr
+ * @in: *tpool - pointer to class object thread_pool
+ * @return: none
+ * @description:
+ * Constructor for class Encoder.
+ */
 Application::Encoder::Encoder(Utils::thread_pool *tpool): m_Tpool(tpool)
 {
     assert(m_Tpool != nullptr);
 }
 
+/**
+ * @class: Encoder
+ * @api: Encoder-dtr
+ * @in: none
+ * @return: none
+ * @description:
+ * Destructor for class Encoder.
+ */
 Application::Encoder::~Encoder()
 {
 }
 
+/**
+ * @class: Encoder
+ * @api: encode_wav2mp3
+ * @in: none
+ * @return: none
+ * @description:
+ * This api will encode Wav files to Mp3 utilizing thread pool.
+ */
 void Application::Encoder::encode_wav2mp3(void)
 {
     assert(m_Tpool != nullptr);
@@ -165,10 +271,15 @@ void Application::Encoder::encode_wav2mp3(void)
     m_Tpool->finish();
 }
 
+/**
+ * @api: main
+ * Main application to convert Wav to MP3
+ * Using Lame encoder library.
+ */
 int main(int argc, char** argv)
 {
     if(argc < 2) {
-        //Utils::parser::Usage();
+        Application::Usage(std::string(argv[0]));
         return Utils::Errors::RET_ERROR;
     }
     const std::string dir_path(argv[1]);

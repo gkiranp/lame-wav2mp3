@@ -27,21 +27,33 @@ enum Errors {
     RET_SUCCESS = 0
 };
 
-void Usage(void);
-
+/**
+ * @class: parser
+ * @description:
+ * This class is used to extract files from
+ * directory. API get_wavfiles() will return
+ * all parsed Wav files in a directory path
+ * passed as an argument to class constructor.
+ */
 class parser
 {
 public:
     parser(std::string dirpath);
     ~parser();
     std::vector<std::string> get_wavfiles(void);
-    void Usage(void);
 private:
     std::vector<std::string> read_directory(const std::string& dir_name);
 private:
     std::vector<std::string> m_wavfiles;
 };
 
+/**
+ * @class: thread_pool
+ * @description:
+ * This class is used to create thread pool.
+ * This class will utilize maximum threads
+ * hardware concurrency can support in system.
+ */
 class thread_pool
 {
 public:
@@ -58,7 +70,12 @@ private:
 
 namespace Application
 {
-
+/**
+ * @class: Encoder
+ * @description:
+ * This class is used to create encode Wav files
+ * to corresponding MP3 using lame library.
+ */
 class Encoder
 {
 public:
