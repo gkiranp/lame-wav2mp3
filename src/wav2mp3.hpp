@@ -10,7 +10,9 @@
 #include "lame.h"
 
 #ifdef _WIN32
+#define NOMINMAX
 #include <windows.h>
+#include <limits>
 #endif
 
 #ifdef __unix__

@@ -20,6 +20,7 @@ include_directories(${LAME_INCLUDE_DIRS})
 #Static linking
 IF(WIN32)
 set(LAMEMP3LIB ${LAME_PATH}/output/libmp3lame-static.lib)
+find_package (Threads REQUIRED)
 ELSE()
 find_library(LAMEMP3LIB
     NAMES mp3lame
@@ -29,4 +30,8 @@ ENDIF()
 
 #Build options
 add_executable(wav2mp3 ${CMAKE_CURRENT_SOURCE_DIR}/wav2mp3.cpp)
+IF(WIN32)
+target_link_libraries(wav2mp3 ${LAMEMP3LIB} Threads::Threads)
+ELSE()
 target_link_libraries(wav2mp3 ${LAMEMP3LIB} pthread)
+ENDIF()
