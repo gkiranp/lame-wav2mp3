@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.1)
+project(wav2mp3)
+
+#Set variables
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+set(CMAKE_EXE_LINKER_FLAGS "-flto")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O2 --std=c++11 -Wall -flto" )
+
+#Enable C++ 
+enable_language(CXX)
+
+#Lame library
+set(LAME_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lame-3.100)
+set(LAME_INCLUDE_DIRS ${LAME_PATH}/include)
+include_directories(${LAME_INCLUDE_DIRS})
+
+#Static linking
+IF(WIN32)
+set(LAMEMP3LIB ${LAME_PATH}/output/libmp3lame-static.lib)
+ELSE()
+find_library(LAMEMP3LIB
+    NAMES mp3lame
+    HINTS "${LAME_PATH}/libmp3lame/.libs"
+)
+ENDIF()
+
+#Build options
+add_executable(wav2mp3 ${CMAKE_CURRENT_SOURCE_DIR}/wav2mp3.cpp)
+target_link_libraries(wav2mp3 ${LAMEMP3LIB} pthread)
