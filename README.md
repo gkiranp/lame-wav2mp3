@@ -23,16 +23,32 @@ C++(11) based wrapper function to Lame-encoder Library.
 (1) Lame library ver 3.100 and later; Download it from here : http://lame.sourceforge.net/
 
 ## How to build
+### To build in GNU - Linux Environment:
+	$ git clone https://github.com/gkiranp/lame-wav2mp3.git
+	$ cd lame-wav2mp3/src
+	$ mkdir -p build
+	$ cd build
+	$ cmake ..
+	$ make
 
-	``` $git clone https://github.com/gkiranp/lame-wav2mp3.git
-	``` $cd lame-wav2mp3/src
-	``` $mkdir -p build
-	``` $cd build
-	``` $cmake ..
-	``` $make
+### To build Microsoft Visual Studio 2013 environment
+	> git clone https://github.com/gkiranp/lame-wav2mp3.git
+	> cd lame-wav2mp3/src
+	> mkdir -p build
+	> cd build
+	> cmake .. -G "Visual Studio 12 2013"
+	> msbuild wav2mp3.vcxproj
 
+### To build using MinGW-32 Windows environment
+	> git clone https://github.com/gkiranp/lame-wav2mp3.git
+	> cd lame-wav2mp3/src
+	> mkdir -p build
+	> cd build
+	> cmake .. -G "MinGW Makefiles"
+	> mingw32-make
+	
 ## To run the application
-	``` $cd lame-wav2mp3/src/build/bin
-	``` $./wav2mp3 <complete-path-to-directory-containing-wav-files>
+	$cd lame-wav2mp3/src/build/bin
+	$./wav2mp3 <complete-path-to-directory-containing-wav-files>
 
 	    
