@@ -23,6 +23,14 @@ C++(11) based wrapper function to Lame-encoder Library.
 (1) Lame library ver 3.100 and later; Download it from here : http://lame.sourceforge.net/
 
 ## How to build
+### Build Lame encoder library in Linux
+	-> Download lame encoder into lame-wav2mp3/src/
+	$ tar -xvf lame-3.100.tar.gz
+	$ cd lame-3.100
+	$ ./configure
+	$ make
+This will build required lame libraries in Linux. To build lame library in Windows, follow this [link](https://wehuberconsultingllc.com/wordpress/2007/12/30/building-the-lame-mp3-encoder-using-visual-studio-8-express/).
+
 ### To build in GNU - Linux Environment:
 	$ git clone https://github.com/gkiranp/lame-wav2mp3.git
 	$ cd lame-wav2mp3/src
