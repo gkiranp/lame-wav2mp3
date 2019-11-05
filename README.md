@@ -30,6 +30,9 @@ C++(11) based wrapper function to Lame-encoder Library.
 This will build required lame libraries in Linux. To build lame library in Windows, follow this [link](https://wehuberconsultingllc.com/wordpress/2007/12/30/building-the-lame-mp3-encoder-using-visual-studio-8-express/).
 
 ## How to build Wav2Mp3 
+Note: To enable debug informations, pass the flag -DDEBUG=ON to cmake build:
+	```$ cmake -DDEBUG=ON ..
+
 ### To build in GNU - Linux Environment:
 	$ git clone https://github.com/gkiranp/lame-wav2mp3.git
 	$ cd lame-wav2mp3/src
