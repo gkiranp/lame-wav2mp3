@@ -31,7 +31,8 @@ This will build required lame libraries in Linux. To build lame library in Windo
 
 ## How to build Wav2Mp3 
 Note: To enable debug informations, pass the flag -DDEBUG=ON to cmake build:
-	```$ cmake -DDEBUG=ON ..
+	
+	$ cmake -DDEBUG=ON ..
 
 ### To build in GNU - Linux Environment:
 	$ git clone https://github.com/gkiranp/lame-wav2mp3.git
