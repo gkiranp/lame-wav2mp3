@@ -20,8 +20,6 @@
 #include <dirent.h>
 #endif
 
-#define DEBUG 1
-
 namespace Utils
 {
 enum Errors {

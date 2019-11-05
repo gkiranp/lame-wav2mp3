@@ -287,6 +287,7 @@ int main(int argc, char** argv)
     std::vector<std::string> wavfiles = p.get_wavfiles();
     
 #ifdef DEBUG
+    std::cout << "Here are list of Wav files found in " << dir_path << std::endl;
     for(auto &a: wavfiles)
         std::cout << a << std::endl;
 #endif

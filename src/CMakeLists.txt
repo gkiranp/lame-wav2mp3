@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
 project(wav2mp3)
 
+#Enabling Debug
+OPTION(DEBUG "Build the project using DEBUG flag" OFF)
+
 #Set variables
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -8,6 +11,14 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 set(CMAKE_EXE_LINKER_FLAGS "-flto")
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O2 --std=c++11 -Wall -flto" )
+
+IF(DEBUG)
+message("Enabling Debug flag...")
+add_definitions(-DDEBUG)
+set(CMAKE_BUILD_TYPE Debug)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG" )
+ENDIF()
+
 
 #Enable C++ 
 enable_language(CXX)
